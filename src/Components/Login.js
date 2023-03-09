@@ -73,10 +73,12 @@ const Login = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh",
         flexDirection: "column",
         margin: "auto",
         width: "50%",
+        border:"1px solid",
+        marginTop: "15rem",
+        padding:"2rem"
       }}
     >
       <div>
