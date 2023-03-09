@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {  createUserWithEmailAndPassword, signInWithPopup, signInWithEmailAndPassword} from 'firebase/auth';
-import { auth, Googleprovider } from "./firebase";
+import { auth, Googleprovider } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
