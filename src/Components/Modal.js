@@ -1,6 +1,6 @@
 import React from "react";
 
-const Modal = ({index,data}) => {
+const Modal = ({ index, data }) => {
   return (
     <div>
       <div

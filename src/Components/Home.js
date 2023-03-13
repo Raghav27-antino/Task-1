@@ -3,26 +3,25 @@ import Modal from "./Modal";
 import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
-import {  signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
 
 const Home = () => {
   const [data, setData] = useState([]);
-  const [index,setIndex] = useState(null);
+  const [index, setIndex] = useState(null);
 
   const navigate = useNavigate();
 
   const logout = async () => {
     await signOut(auth);
     navigate("/auth");
-  }
-
+  };
 
   useEffect(() => {
-    onAuthStateChanged(auth,(user) =>{
-      if(!user){
-        navigate('/auth');
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        navigate("/auth");
       }
-    })
+    });
 
     fetch("https://jsonplaceholder.typicode.com/comments")
       .then((res) => {
@@ -37,7 +36,11 @@ const Home = () => {
     <div>
       <div className="d-flex justify-content-around m-3">
         <h1>Home Page</h1>
-        <button type="button" className="btn btn-danger font-weight-bold" onClick={logout}>
+        <button
+          type="button"
+          className="btn btn-danger font-weight-bold"
+          onClick={logout}
+        >
           Logout
         </button>
       </div>
@@ -64,7 +67,7 @@ const Home = () => {
                       className="btn btn-primary"
                       data-toggle="modal"
                       data-target="#exampleModalCenter"
-                      onClick={()=>setIndex(key)}
+                      onClick={() => setIndex(key)}
                     >
                       Description
                     </button>
@@ -72,7 +75,7 @@ const Home = () => {
                 </tr>
               );
             })}
-            <Modal index={index} data={data}/>
+          <Modal index={index} data={data} />
         </tbody>
       </table>
     </div>

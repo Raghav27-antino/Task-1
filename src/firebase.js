@@ -12,7 +12,7 @@ const firebaseConfig = {
   projectId: "task-1-ff719",
   storageBucket: "task-1-ff719.appspot.com",
   messagingSenderId: "741794961152",
-  appId: "1:741794961152:web:0d3a1d7c0958db805f05e5"
+  appId: "1:741794961152:web:0d3a1d7c0958db805f05e5",
 };
 
 // Initialize Firebase
