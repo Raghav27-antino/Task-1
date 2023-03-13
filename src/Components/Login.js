@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import {  createUserWithEmailAndPassword, signInWithPopup, signInWithEmailAndPassword} from 'firebase/auth';
-import { auth, Googleprovider } from "../firebase";
+import {
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth, Googleprovider, facebookProvider } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -11,22 +15,36 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const signupWithEmail = async (e) => {
+  const signUpWithFacebook = async (e) => {
     try {
-
       e.preventDefault();
 
-      if(!email || !password || !confirm){
+      const userCredentials = signInWithPopup(auth, facebookProvider);
+    } catch (error) {
+      const errorCode = error.code;
+      return;
+    }
+  };
+
+  const signupWithEmail = async (e) => {
+    try {
+      e.preventDefault();
+
+      if (!email || !password || !confirm) {
         console.log("Fill all the fields");
         return;
       }
 
-      if(password !== confirm){
+      if (password !== confirm) {
         console.log("Password doesnot match");
         return;
       }
 
-      const userCreds = await createUserWithEmailAndPassword(auth,email,password);
+      const userCreds = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
       console.log(userCreds.user);
 
       navigate("/");
@@ -37,20 +55,17 @@ const Login = () => {
 
   const signInWithEmail = async (e) => {
     try {
-
       e.preventDefault();
 
-      if(!email || !password){
+      if (!email || !password) {
         console.log("Fill all the fields");
         return;
       }
 
-
-      const userCreds = await signInWithEmailAndPassword(auth,email,password);
+      const userCreds = await signInWithEmailAndPassword(auth, email, password);
       console.log(userCreds.user);
 
       navigate("/");
-      
     } catch (error) {
       console.log(error.code);
     }
@@ -76,9 +91,9 @@ const Login = () => {
         flexDirection: "column",
         margin: "auto",
         width: "50%",
-        border:"1px solid",
+        border: "1px solid",
         marginTop: "15rem",
-        padding:"2rem"
+        padding: "2rem",
       }}
     >
       <div>
@@ -138,12 +153,12 @@ const Login = () => {
               />
             </div>
           )}
-          
+
           {toggle ? (
             <button
               type="submit"
               className="btn btn-primary btn-block btn-lg"
-              onClick={(e)=>signupWithEmail(e)}
+              onClick={(e) => signupWithEmail(e)}
             >
               SignUp
             </button>
@@ -151,17 +166,25 @@ const Login = () => {
             <button
               type="submit"
               className="btn btn-primary btn-block btn-lg"
-              onClick={(e)=>signInWithEmail(e)}
+              onClick={(e) => signInWithEmail(e)}
             >
               SignIn
             </button>
           )}
         </form>
         <h4 className="text-center">Or</h4>
-        <button type="button" className="btn btn-primary btn-lg btn-block" onClick={signUpWithGoogle}>
+        <button
+          type="button"
+          className="btn btn-primary btn-lg btn-block"
+          onClick={signUpWithGoogle}
+        >
           Signup/SignIn with Google
         </button>
-        <button type="button" className="btn btn-secondary btn-lg btn-block">
+        <button
+          type="button"
+          className="btn btn-secondary btn-lg btn-block"
+          onClick={(e) => signUpWithFacebook(e)}
+        >
           Signup/SignIn with facebook
         </button>
       </div>
